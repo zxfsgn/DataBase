@@ -34,11 +34,11 @@ void deleteOne(Student* students, int& studentsAmount) {
 	cout << "Enter student's id: ";
 	int id;
 	cin >> id;
-	int deletingIndex = getIndexById(students, studentsAmount, id);
-	for (int j = deletingIndex; j < studentsAmount - 1; ++j) {
-		students[j] = students[j + 1];
+	int deletingIndex = getIndexById(students, studentsAmount--, id);
+	for (int j = deletingIndex; j < studentsAmount; ++j) {
+		students[j] = students[j+1];
 	}
-	students[--studentsAmount - 1] = {};
+	students[studentsAmount] = {};
 }
 
 void createOne(Student* students, int& studentsAmount, int& currentId) {

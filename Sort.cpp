@@ -2,23 +2,50 @@
 #include <iostream>
 #include "Student.h"
 
-void swap(Student[], size_t, size_t);
+using std::cin;
+using std::cout;
 
-void sort(Student students[], size_t start, size_t end) {
+void swap(Student[], int, int);
+bool fieldCheck(int ,Student* , int , int );
+void sort(Student*, int , int ,int ) ;
+
+void sortShell(Student* students, int start, int end){
+		cout<<"Enter column to sorting";
+	int column;
+	cin >> column;
+	sort(students, start, end,column);
+}
+
+void sort(Student* students, int start, int end,int column) {
+
+	bool comparison = fieldCheck(column,students, start, end);
 	if (start >= end)
 		return;
-	size_t current{ start };
-	for (size_t i{ start + 1 }; i <= end; i++) {
-		if (students[i].yearOfBirth < students[start].yearOfBirth) {
+	int  current{ start };
+	for (int  i{ start + 1 }; i <= end; i++) {
+		if (comparison) {
 			swap(students, ++current, i);
 		}
 	}
 	swap(students, start, current);
-	sort(students, start, current - 1);
-	sort(students, current + 1, end);
+	sort(students, start, current - 1,column);
+	sort(students, current + 1, end,column);
 }
-void swap(Student students[], size_t first, size_t second) {
+
+void swap(Student students[], int first, int second) {
 	auto temp{ students[first] };
 	students[first] = students[second];
 	students[second] = temp;
+}
+
+bool fieldCheck(int column,Student* students, int k, int l){
+	switch(column){
+	case 1: return students[k].name < students[l].name; break;
+	case 2: return students[k].surname < students[l].surname; break;
+	case 3: return students[k].patronymic < students[l].patronymic; break;
+	case 4: return students[k].group < students[l].group; break;
+	case 5: return students[k].grades[0] < students[l].grades[0]; break;
+	case 6: return students[k].yearOfBirth < students[l].yearOfBirth; break;
+	} 
+	return true;
 }

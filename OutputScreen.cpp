@@ -6,8 +6,6 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::setw;
-using std::numeric_limits;
-using std::streamsize;
 using std::left;
 
 struct Width {
@@ -33,7 +31,7 @@ void printElement(const char* t, const int width)
 	const char separator = '|';
 	cout << left << setw(width) << t << separator;
 }
-//Перенос написать
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 void printTitle(Width width) {
 	char titles[][20] = {"Id", "Name" ,"Surname","Patronymic","Group","Grades", "BYear" };
 	cout << "\n|";

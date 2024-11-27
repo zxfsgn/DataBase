@@ -6,10 +6,11 @@
 #include "InputKeyboard.h"
 #include "InputChecks.h"
 #include "Request.h"
+#include "Sort.h"
 
 using std::cout;
 using std::endl;
-//через переменные все значения передать
+//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -33,7 +34,7 @@ int main() {
 		case 9: createOne(students, studentsAmount, currentId); break;
 		case 10: changeOne(students, studentsAmount); break;
 		case 11: deleteOne(students, studentsAmount); break;
-		//case 12: sort
+		case 12: sortShell(students,0, studentsAmount-1);
 		case 0: cout << "BB" << endl; break;
 		default: cout << "illegal command\n";
 		}

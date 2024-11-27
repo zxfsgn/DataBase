@@ -1,4 +1,4 @@
 #pragma once
 #include "Student.h"
 
-void sort(Student*, int);
+void sortShell(Student*, int, int);
