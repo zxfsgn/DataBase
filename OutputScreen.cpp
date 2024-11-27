@@ -11,11 +11,12 @@ using std::streamsize;
 using std::left;
 
 struct Width {
+	int id;
 	int name;
 	int group;
 	int grades;
 	int birthYear;
-	int total = name * 3 + group + grades + birthYear + 7;
+	int total = id + name * 3 + group + grades + birthYear + 8;
 };
 
 void printBorder(const int amount) {
@@ -34,10 +35,11 @@ void printElement(const char* t, const int width)
 }
 //Перенос написать
 void printTitle(Width width) {
-	char titles[][20] = { "Name" ,"Surname","Patronymic","Group","Grades", "BYear" };
+	char titles[][20] = {"Id", "Name" ,"Surname","Patronymic","Group","Grades", "BYear" };
 	cout << "\n|";
 	int i = 0;
-	while (i < 3) printElement(titles[i++], width.name);
+	printElement(titles[i++], width.id);
+	while (i < 4) printElement(titles[i++], width.name);
 	printElement(titles[i++], width.group);
 	printElement(titles[i++], width.grades);
 	printElement(titles[i++], width.birthYear);
@@ -45,6 +47,7 @@ void printTitle(Width width) {
 
 void printOneStudent(Student student, const Width width) {
 	cout << "\n|";
+	printElement(student.id, width.id);
 	printElement(student.name, width.name);
 	printElement(student.surname, width.name);
 	printElement(student.patronymic, width.name);
@@ -56,7 +59,7 @@ void printOneStudent(Student student, const Width width) {
 };
 
 void OutputToTheScreen(Student* students, int studentsAmount) {
-	const Width width{ 16, 10, 12, 5 };
+	const Width width{3, 16, 10, 12, 5 };
 	printBorder(width.total);
 	printTitle(width);
 	printBorder(width.total);

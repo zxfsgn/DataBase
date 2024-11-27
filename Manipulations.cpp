@@ -15,10 +15,11 @@ void FixStreamState() {
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void DeleteAll(Student* students, int studentsAmount) {
+void DeleteAll(Student* students, int& studentsAmount) {
 	for (int i = 0; i < studentsAmount; ++i) {
 		students[i] = {};
 	}
+	studentsAmount = 0;
 }
 
 int getIndexById(Student* students, int studentsAmount, int id) {
@@ -29,13 +30,15 @@ int getIndexById(Student* students, int studentsAmount, int id) {
 	return -1;
 }
 
-void deleteOne(Student* students, int studentsAmount) {
+void deleteOne(Student* students, int& studentsAmount) {
+	cout << "Enter student's id: ";
 	int id;
 	cin >> id;
 	int deletingIndex = getIndexById(students, studentsAmount, id);
 	for (int j = deletingIndex; j < studentsAmount - 1; ++j) {
 		students[j] = students[j + 1];
 	}
+	students[--studentsAmount - 1] = {};
 }
 
 void createOne(Student* students, int& studentsAmount, int& currentId) {
@@ -66,10 +69,11 @@ void createOne(Student* students, int& studentsAmount, int& currentId) {
 }
 
 void changeOne(Student* students, int studentsAmount) {
+	cout << "Enter student's id: ";
 	int id;
 	cin >> id;
 	const int inputLength = 100;
-	Student student = students[getIndexById(students, studentsAmount, id)];
+	Student& student = students[getIndexById(students, studentsAmount, id)];
 	FixStreamState();
 	cout << "Enter student's group: ";
 	cin.getline(student.group, inputLength, '\n');
