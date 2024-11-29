@@ -18,12 +18,11 @@ void sortShell(Student* students, int start, int end){
 
 void sort(Student* students, int start, int end,int column) {
 
-	bool comparison = fieldCheck(column,students, start, end);
 	if (start >= end)
 		return;
 	int  current{ start };
 	for (int  i{ start + 1 }; i <= end; i++) {
-		if (comparison) {
+		if (fieldCheck(column,students, start, i)) {
 			swap(students, ++current, i);
 		}
 	}
