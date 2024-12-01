@@ -36,7 +36,7 @@ void swap(Student students[], int first, int second) {
 	students[first] = students[second];
 	students[second] = temp;
 }
-
+//указатель на функцию заюзать и енум
 bool fieldCheck(int column,Student* students, int k, int l){
 	switch(column){
 	case 1: return students[k].name < students[l].name; break;
