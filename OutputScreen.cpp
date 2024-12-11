@@ -43,7 +43,7 @@ void printTitle(Width width) {
 	printElement(titles[i++], width.birthYear);
 }
 
-void printOneStudent(Student student, const Width width) {
+void printOneStudent(Student& student, const Width width) {
 	cout << "\n|";
 	printElement(student.id, width.id);
 	printElement(student.name, width.name);

@@ -7,19 +7,24 @@
 #include "InputChecks.h"
 #include "Request.h"
 #include "Sort.h"
+#include "FileOutput.h"
+#include "FileInput.h"
+#include "BinaryInput.h"
 
 using std::cout;
 using std::endl;
 //����� ���������� ��� �������� ��������
 
+const char FILE_NAME[] = "Students.txt";
+const char BIN_NAME[] = "Students.txt";
+
 int main() {
 	setlocale(LC_ALL, "Russian");
 
-	int studentsAmount{ 2 };
+	int studentsAmount{ };
 	int currentId{};
 
-	Student* students = new Student[100]{ {21,"a","b","c",2006,"412",{5, 5,5,5,4,4}},
-	{22,"a","b","b",1200,"465j2",{1,2,4,5,6,7}} };
+	Student* students = new Student[100]{ };
 	size_t max_length{};
 
 	int command{};
@@ -29,7 +34,10 @@ int main() {
 		command = GetCorrectValue();
 		switch (command) {
 		case 1:InputFromKeyboard(students, studentsAmount, currentId); break;
+		case 2:InputFromBin(FILE_NAME, students,studentsAmount,currentId);break;
+		case 3:InputFromBin(BIN_NAME, students,studentsAmount,currentId);break;
 		case 4:OutputToTheScreen(students, studentsAmount); break;
+		case 5: OutputToFile(FILE_NAME,students,studentsAmount);break;
 		case 6: request(students, studentsAmount); break;
 		case 9: createOne(students, studentsAmount, currentId); break;
 		case 10: changeOne(students, studentsAmount); break;
@@ -44,10 +52,10 @@ int main() {
 
 void PrintMenu() {
 	cout << "1 - input from keyboard" << endl;
-	//cout << "2 - input from a text flie" << endl;
-	//cout << "3 - input from a binary flie" << endl;
+	cout << "2 - input from a text flie" << endl;
+	cout << "3 - input from a binary flie" << endl;
 	cout << "4 - output to the screen" << endl;
-	//cout << "5 - output to the flie" << endl;
+	cout << "5 - output to the flie" << endl;
 	cout << "6 - printout on request" << endl;
 	//cout << "7 - transfer to a text file" << endl;
 	//cout << "8 - transfer text file to binary" << endl;
