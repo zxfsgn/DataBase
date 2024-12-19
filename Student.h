@@ -1,4 +1,6 @@
 #pragma once
+#include "Widths.h"
+
 struct Student {
 	int id;
 	char name[100];

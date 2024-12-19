@@ -2,4 +2,5 @@
 
 #include "Student.h"
 
-void InputFromBin(const char*, Student*, int&, int& );
+void ConvertTextToBin(const char* textName, const char* binName);
+void GetFromBinary(const char* binName, Student* students, int& studentsAmount, int& currentId);

@@ -1,4 +1,4 @@
 #pragma once
 #include "Student.h"
 
-Student* InputFromKeyboard(Student*, int&, int&);
+void InputFromKeyboard(Student*, int&, int&);

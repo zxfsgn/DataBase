@@ -6,6 +6,14 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+//bool isStudentsEmpty(Student* students, int& studentsAmount) {
+//	if (studentsAmount > 0) {
+//		DeleteAll(students, studentsAmount);
+//		if (studentsAmount > 0) return false;
+//	}
+//	return true;
+//}
+
 int GetCorrectValue() {
 	int n{};
 	bool isNotOk{};
@@ -38,6 +46,14 @@ int BirthCheck(int maxYear, int minYear) {
 	}
 
 	return year;
+}
+
+bool IndexCheck(int index, int studentsAmount) {
+	if (index < 1 and index > studentsAmount) {
+		cout << "Нет студента с таким индексом\n";
+		return false;
+	}
+	return true;
 }
 
 /*void StringCheck(){

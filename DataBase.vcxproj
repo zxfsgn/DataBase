@@ -102,8 +102,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,8 +128,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryInput.cpp" />
+    <ClCompile Include="FileInput.cpp" />
+    <ClCompile Include="FileOutput.cpp" />
     <ClCompile Include="InputChecks.cpp" />
     <ClCompile Include="Manipulations.cpp" />
+    <ClCompile Include="Others.cpp" />
     <ClCompile Include="OutputScreen.cpp" />
     <ClCompile Include="Sort.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -136,6 +141,12 @@
     <ClCompile Include="Request.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryInput.h" />
+    <ClInclude Include="Class.h" />
+    <ClInclude Include="FileInput.h" />
+    <ClInclude Include="FileOutput.h" />
+    <ClInclude Include="Others.h" />
+    <ClInclude Include="Widths.h" />
     <ClInclude Include="InputChecks.h" />
     <ClInclude Include="Manipulations.h" />
     <ClInclude Include="InputKeyboard.h" />
@@ -143,6 +154,12 @@
     <ClInclude Include="Request.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Student.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Students.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Students.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

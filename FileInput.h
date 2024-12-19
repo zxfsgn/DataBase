@@ -2,4 +2,7 @@
 
 #include "Student.h"
 
-void InputFromFile(const char*, Student*, int&, int& );
+#include <fstream>
+
+bool InitializeStudentFromText(std::ifstream& f, Student& student);
+void InputFromTFile(const char*, Student*, int&, int& );
