@@ -1,12 +1,13 @@
 #pragma once
 #include "Widths.h"
 
-struct Student {
-	int id;
-	char name[100];
-	char surname[100];
-	char patronymic[100];
-	int yearOfBirth;
-	char group[100];
-	int grades[6];
+struct Student
+{
+  int id;
+  wchar_t name[100];
+  wchar_t surname[100];
+  wchar_t patronymic[100];
+  int yearOfBirth;
+  wchar_t group[100];
+  int grades[6];
 };

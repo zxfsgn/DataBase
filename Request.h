@@ -1,3 +1,3 @@
-#pragma on
+#pragma once
 #include "Student.h"
-void request(Student*, const int);
+void request(Student *, const int);

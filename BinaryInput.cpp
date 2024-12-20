@@ -1,5 +1,6 @@
 #include "Student.h"
 #include "FileInput.h"
+#include "FileOutput.h"
 #include "Manipulations.h"
 
 #include <fstream>
@@ -7,30 +8,52 @@
 
 using namespace std;
 
-void ConvertTextToBin(const char* textName,const char* binName) {
-	ofstream fout(binName, ios::binary);
-	ifstream fin(textName);
-
-	//Проверить, создастся ли без иос::аут
-	Student buf{};
-	while (InitializeStudentFromText(fin, buf)) {
-		fout.write(reinterpret_cast<char*>(&buf)+4, sizeof(buf)-4);
-	}
-	fin.close();
-	fout.close();
+bool fileCheck(ofstream &f, const wchar_t *massage)
+{
+  if (!f)
+  {
+    wcerr << massage;
+    return false;
+  }
+  return true;
 }
 
-void GetFromBinary(const char* binName, Student* students, int& studentsAmount, int& currentId) {
-	ifstream fin(binName, ios::binary);
-	if (!fin) {
-		cerr << "Файл не читается";//в функцию
-		return;
-	}
-	Student buf{};
-	DeleteAll(students, studentsAmount);
-	while (fin.read(reinterpret_cast<char*>(&buf) + 4, sizeof(buf) - 4)) {
-		buf.id = currentId++;
-		students[studentsAmount++] = buf;
-	}
-	fin.close();
+bool fileCheck(ifstream &f, const wchar_t *massage)
+{
+  if (!f)
+  {
+    wcerr << massage;
+    return false;
+  }
+  return true;
+}
+
+void ConvertTextToBin(const char *textName, const char *binName)
+{
+  ofstream fout(binName, ios::binary);
+  wifstream fin(textName);
+  if (!fileCheck(fout, L"Р‘РёРЅР°СЂРЅС‹Р№ С„Р°Р№Р» РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРѕР·РґР°РЅ\n"))
+    return;
+  if (!fileCheck(fin, L"РўРµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚РєСЂС‹С‚\n"))
+    return;
+  Student buf{};
+  while (InitializeStudentFromText(fin, buf))
+    fout.write(reinterpret_cast<char *>(&buf) + 4, sizeof(buf) - 4);
+  fin.close();
+  fout.close();
+}
+
+void GetFromBinary(const char *binName, Student *students, int &studentsAmount, int &currentId)
+{
+  ifstream fin(binName, ios::binary);
+  if (!fileCheck(fin, L"Р¤Р°Р№Р» РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚РєСЂС‹С‚\n"))
+    return;
+  Student buf{};
+  DeleteAll(students, studentsAmount);
+  while (fin.read(reinterpret_cast<char *>(&buf) + 4, sizeof(buf) - 4))
+  {
+    buf.id = currentId++;
+    students[studentsAmount++] = buf;
+  }
+  fin.close();
 }

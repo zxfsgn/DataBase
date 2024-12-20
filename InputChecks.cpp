@@ -1,66 +1,107 @@
 #include "InputChecks.h"
-#include <iostream>
 #include "Manipulations.h"
 
-using std::cin;
-using std::cout;
+#include <iostream>
+#include <limits>
+
 using std::endl;
+using std::wcerr;
+using std::wcin;
+using std::wcout;
 
-//bool isStudentsEmpty(Student* students, int& studentsAmount) {
-//	if (studentsAmount > 0) {
-//		DeleteAll(students, studentsAmount);
-//		if (studentsAmount > 0) return false;
-//	}
-//	return true;
-//}
-
-int GetCorrectValue() {
-	int n{};
-	bool isNotOk{};
-
-	do {
-		isNotOk = false;
-		if ((cin >> n).fail()) {
-			FixStreamState();
-			cout << "Illegal input!" << endl;
-			cout << "Input command once more: " << endl;
-			isNotOk = true;
-		}
-	} while (isNotOk);
-
-	return n;
+int GetCorrectValue() // wchar_t *massage
+{
+  int n{};
+  bool isNotOk{};
+  do
+  {
+    isNotOk = false;
+    if ((wcin >> n).fail())
+    {
+      FixStreamState();
+      wcerr << L"–í–≤–µ–¥—ë–Ω –Ω–µ–≤–µ—Ä–Ω—ã–π —Å–∏–º–≤–æ–ª" << endl;
+      wcout << L"–í–≤–µ–¥–∏—Ç–µ —Ü–µ–ª–æ–µ —á–∏—Å–ª–æ: " << endl;
+      isNotOk = true;
+    }
+  } while (isNotOk);
+  return n;
 }
 
-int BirthCheck(int maxYear, int minYear) {
-	int year{};
-	cin >> year;
-	while (year<minYear or year>maxYear) {
-		FixStreamState();
-		if (year < minYear) {
-			cout << "Year of birth is too small. Enter again\n";
-		}
-		else if (year > maxYear) {
-			cout << "Year of birth is too big. Enter again\n";
-		}
-		cin >> year;
-	}
-
-	return year;
+bool isNumInRange(int number, int leftBorder, int rightBorder)
+{
+  if (number >= leftBorder && number <= rightBorder)
+    return true;
+  return false;
 }
 
-bool IndexCheck(int index, int studentsAmount) {
-	if (index < 1 and index > studentsAmount) {
-		cout << "ÕÂÚ ÒÚÛ‰ÂÌÚ‡ Ò Ú‡ÍËÏ ËÌ‰ÂÍÒÓÏ\n";
-		return false;
-	}
-	return true;
+int BirthCheck(int maxYear, int minYear)
+{
+  int year{};
+  bool isNotOK{};
+  do
+  {
+    isNotOK = false;
+    year = GetCorrectValue();
+    if (!isNumInRange(year, minYear, maxYear))
+    {
+      isNotOK = true;
+      wcin.ignore(std::numeric_limits<std::streamsize>::max(), L'\n');
+      if (year < minYear)
+      {
+        wcerr << L"–°–ª–∏—à–∫–æ–º –º–∞–ª–µ–Ω—å–∫–æ–µ —á–∏—Å–ª–æ. –í–≤–µ–¥–∏—Ç–µ –¥—Ä—É–≥–æ–µ\n";
+      }
+      else if (year > maxYear)
+      {
+        wcerr << L"–°–ª–∏—à–∫–æ–º –±–æ–ª—å—à–æ–µ —á–∏—Å–ª–æ. –í–≤–µ–¥–∏—Ç–µ –¥—Ä—É–≥–æ–µ\n";
+      }
+    }
+  } while (isNotOK);
+
+  return year;
 }
 
-/*void StringCheck(){
-	for (int i{}; i<lenght; ++i){
-		if(word[i]==' '){
-			cout<<"ÌÂ ‰ÓÎÊÌÓ ÒÓ‰ÂÊ‡Ú¸ ÔÓ·ÂÎÓ‚"
-		}
-	}
-}//Ï‡Ò¯Ú‡·ËÓ‚‡Ú¸ ÍÓÎÓÌÍÛ ÔÓ ‡ÁÏÂÛ ËÏÂÌË
-ÔÓ‚ÂÍ‡ Ì‡ ‚ÂÒ ÒËÏ‚ÓÎ‡ ‰Îˇ ÍËËÎÎËˆ˚*/
+int GradeCheck(int gradeNumber)
+{
+  int grade{};
+  bool isNotOk{};
+  do
+  {
+    isNotOk = false;
+    if ((wcin >> grade).fail() || grade < 1 || grade > 5)
+    {
+      FixStreamState();
+      wcerr << L"–í–≤–µ–¥–µ–Ω–æ —á—Ç–æ-—Ç–æ –Ω–µ–ø—Ä–∞–≤–∏–ª—å–Ω–æ–µ" << endl;
+      wcout << L"–í–≤–µ–¥–∏—Ç–µ –µ—â—ë " << 6 - gradeNumber
+            << L" —Ü–µ–ª—ã—Ö " << (gradeNumber < 2 ? L"—á–∏—Å–µ–ª" : L"—á–∏—Å–ª–∞")
+            << L" –æ—Ç 1 –¥–æ 5" << endl;
+      isNotOk = true;
+    }
+  } while (isNotOk);
+  return grade;
+}
+
+bool IndexCheck(int index, int studentsAmount)
+{
+  if (index < 1 || index > studentsAmount)
+  {
+    wcerr << L"–ù–µ—Ç —Ç–∞–∫–æ–≥–æ –Ω–æ–º–µ—Ä–∞\n";
+    return false;
+  }
+  return true;
+}
+
+bool isStringValid(wchar_t *str)
+{
+  int i = -1;
+  while (str[++i] != '\0')
+  {
+    wchar_t ch = str[i];
+    if ((ch < L'A' || ch > L'Z') && (ch < L'a' || ch > L'z') && (ch < L'–∞' || ch > L'—è') && (ch < L'–ê' || ch > L'–Ø') && ch != L'-' && ch != L' ')
+    {
+      wcerr << L"–ù–µ–¥–æ–ø—É—Å—Ç–∏–º—ã–µ —Å–∏–º–≤–æ–ª—ã\n";
+      wcout << L"–ü–æ–ø—Ä–æ–±—É–π—Ç–µ –ø–∏—Å–∞—Ç—å –±—É–∫–≤–∞–º–∏" << endl;
+      return false;
+    }
+  }
+  return true;
+}

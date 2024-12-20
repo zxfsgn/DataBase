@@ -4,111 +4,106 @@
 #include <iomanip>
 #include <limits>
 
-using std::cin;
-using std::cout;
-using std::setw;
 using std::numeric_limits;
+using std::setw;
 using std::streamsize;
+using std::wcin;
+using std::wcout;
 
-void FixStreamState() {
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+void FixStreamState()
+{
+  wcin.clear();
+  wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
 }
 
-void DeleteAll(Student* students, int& studentsAmount) {
-	if (studentsAmount == 0) return;
-	bool deleting;
-	cout << "Óäàëèòü âñå çàïèñè ? \n(1 - äà, 0 - íåò)\n";
-	cin >> deleting;
-	if (!deleting) return;
-	for (int i = 0; i < studentsAmount; ++i) {
-		students[i] = {};
-	}
-	studentsAmount = 0;
+void getName(wchar_t *str, int inputLength)
+{
+  do
+    wcin.getline(str, inputLength);
+  while (!isStringValid(str));
 }
 
-int getIndexById(Student* students, int studentsAmount, int id) {
-	for (int i = 0; i < studentsAmount; ++i) {
-		if (students[i].id == id) return i;
-	}
-	cout << "There's no student with this id\n";
-	return -1;
+int getStudentNum()
+{
+  wcout << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð°: ";
+  int number;
+  wcin >> number;
+  return number;
 }
 
-void deleteOne(Student* students, int& studentsAmount) {
-	cout << "Ââåäèòå íîìåð ñòóäåíòà: ";
-	int index;
-	cin >> index;
-	if (IndexCheck(index, studentsAmount)) {
-		for (int j = index - 1; j < studentsAmount; ++j) {
-			students[j] = students[j + 1];
-		}
-		students[--studentsAmount] = {};
-		cout << "Óäàëåíèå ïðîøëî óñïåøíî\n";
-	}
-	else
-		cout << "Óäàëåíèå îòìåíåíî\n";
+void DeleteAll(Student *students, int &studentsAmount)
+{
+  if (studentsAmount == 0)
+    return;
+  bool deleting;
+  wcout << L"Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð²ÑÐµ Ð·Ð°Ð¿Ð¸ÑÐ¸? \n(1 - Ð´Ð°, 0 - Ð½ÐµÑ‚)\n";
+  wcin >> deleting;
+  if (!deleting)
+    return;
+  for (int i = 0; i < studentsAmount; ++i)
+  {
+    students[i] = {};
+  }
+  studentsAmount = 0;
 }
 
-void createOne(Student* students, int& studentsAmount, int& currentId) {
+void InitializeStudent(Student &student)
+{ // add autoformat for strings
+  const int inputLength = 100;
+  wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
+  wcout << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñƒ: ";
+  wcin.getline(student.group, inputLength);
+  wcout << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ„Ð°Ð¼Ð¸Ð»Ð¸ÑŽ: ";
+  getName(student.surname, inputLength);
+  wcout << L"Ð˜Ð¼Ñ: ";
+  getName(student.name, inputLength);
+  wcout << L"ÐžÑ‚Ñ‡ÐµÑÑ‚Ð²Ð¾: ";
+  getName(student.patronymic, inputLength);
+  wcout << L"Ð“Ð¾Ð´ Ñ€Ð¾Ð¶Ð´ÐµÐ½Ð¸Ñ: ";
+  student.yearOfBirth = BirthCheck(2012, 1900);
+  wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
 
-	const int inputLength = 100;
-	Student student{ currentId++ };
-	FixStreamState();
-	cout << "Enter student's group: ";
-	cin.getline(student.group, inputLength, '\n');//no check
-	
-	cout << "Enter the student's surname: ";
-	cin.getline(student.surname, inputLength, '\n');//check for symbols in ABC
-	cout << "Enter the student's name: ";			//and autoformat to Abc
-	cin.getline(student.name, inputLength, '\n');	//no spaces
-	cout << "Enter the student's patronymic: ";
-	cin.getline(student.patronymic, inputLength, '\n');
-
-	cout << "Enter student's year of birth: ";
-	student.yearOfBirth = BirthCheck(2012, 1900);//no spaces
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cout << "Enter student's grades: ";//no spaces
-	for (size_t j{}; j < 6; ++j) {		//range
-		cin >> student.grades[j];
-	}
-
-	students[studentsAmount++] = student;
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cout << "Ñòóäåíò äîáàâëåí\n";
+  wcout << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 6 Ð¾Ñ†ÐµÐ½Ð¾Ðº: ";
+  for (size_t j{}; j < 6; ++j)
+    student.grades[j] = GradeCheck(j);
+  wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
 }
 
-void changeOne(Student* students, int studentsAmount) {
-	cout << "Ââåäèòå íîìåð ñòóäåíòà: ";
-	int number;
-	cin >> number;
-	const int inputLength = 100;
-	if (IndexCheck(number, studentsAmount)) {
-		Student& student = students[number - 1];
-		FixStreamState();
-		cout << "Enter student's group: ";
-		cin.getline(student.group, inputLength, '\n');
+void deleteOne(Student *students, int &studentsAmount)
+{ // mb add return from selected menu item somewhere
+  int number = getStudentNum();
+  if (IndexCheck(number, studentsAmount))
+  {
+    for (int j = number - 1; j < studentsAmount; ++j)
+    {
+      students[j] = students[j + 1];
+    }
+    students[--studentsAmount] = {};
+    wcout << L"Ð—Ð°Ñ„Ð¸ÐºÐ¸ÑÑ€Ð¾Ð²Ð°Ð½Ð¾ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð°\n";
+  }
+  else
+    wcout << L"Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð° Ð½Ðµ ÑÐ»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ\n";
+}
 
-		cout << "Enter the student's surname: ";
-		cin.getline(student.surname, inputLength, '\n');
-		cout << "Enter the student's name: ";
-		cin.getline(student.name, inputLength, '\n');
-		cout << "Enter the student's patronymic: ";
-		cin.getline(student.patronymic, inputLength, '\n');
+void createOne(Student *students, int &studentsAmount, int &currentId)
+{
+  Student student{currentId++};
+  InitializeStudent(student);
+  students[studentsAmount++] = student;
+  wcout << L"Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð° ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¾\n";
+}
 
-		cout << "Enter student's year of birth: ";
-		student.yearOfBirth = BirthCheck(2012, 1900);
-
-		cout << "Enter student's grades: ";
-		for (size_t j{}; j < 6; ++j) {
-			cin >> student.grades[j];
-		}
-
-		students[studentsAmount++] = student;
-		FixStreamState();
-		cout << "Ñòóäåíò èçìåí¸í\n";
-	}
-	else {
-		cout << "Èçìåíåíèå îòìåíåíî\n";
-	}
+void changeOne(Student *students, int studentsAmount)
+{
+  int number = getStudentNum();
+  if (IndexCheck(number, studentsAmount))
+  {
+    Student &student = students[number - 1];
+    InitializeStudent(student);
+    wcout << L"Ð¡ÑƒÑ‰Ð½Ð¾ÑÑ‚ÑŒ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð° Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°\n";
+  }
+  else
+  {
+    wcout << L"ÐÐµÑ‚ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÑÑƒÑ‰Ð½Ð¾ÑÑ‚ÑŒ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð°\n";
+  }
 }
