@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include <cstring>
+#include <cwchar>
 
 using std::endl;
 using std::left;
@@ -82,16 +82,16 @@ void printOneStudent(int index, Student &student, const Widths width)
   Student buffer{-1};
   bool isExcess = false;
   printElement(index + 1, width.id);
-  memcpy(buffer.name, printElement(student.name, width.name), 100);
-  memcpy(buffer.surname, printElement(student.surname, width.name), 100);
-  memcpy(buffer.patronymic, printElement(student.patronymic, width.name), 100);
-  memcpy(buffer.group, printElement(student.group, width.group, true), 100);
+  wmemcpy(buffer.name, printElement(student.name, width.name), 100);
+  wmemcpy(buffer.surname, printElement(student.surname, width.name), 100);
+  wmemcpy(buffer.patronymic, printElement(student.patronymic, width.name), 100);
+  wmemcpy(buffer.group, printElement(student.group, width.group, true), 100);
   for (auto grade : student.grades)
     wcout << (grade != 0 ? static_cast<wchar_t>(grade + L'0') : L' ') << ' ';
   wcout << '|';
   printElement(student.yearOfBirth, width.birthYear);
   buffer.yearOfBirth = -1;
-  if (memcmp(buffer.name, "", 1) || memcmp(buffer.surname, "", 1) || memcmp(buffer.patronymic, "", 1) || memcmp(buffer.group, "", 1))
+  if (wmemcmp(buffer.name, L"", 1) || wmemcmp(buffer.surname, L"", 1) || wmemcmp(buffer.patronymic, L"", 1) || wmemcmp(buffer.group, L"", 1))
     printOneStudent(-2, buffer, width);
 };
 
