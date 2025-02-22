@@ -70,9 +70,9 @@ void InitializeStudent(Student &student)
 }
 
 void deleteOne(Student *students, int &studentsAmount)
-{ // mb add return from selected menu item somewhere
+{
   int number = getStudentNum();
-  if (IndexCheck(number, studentsAmount))
+  if (IndexCheck(number, studentsAmount) && areYouSure())
   {
     for (int j = number - 1; j < studentsAmount; ++j)
     {

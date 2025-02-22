@@ -105,3 +105,11 @@ bool isStringValid(wchar_t *str)
   }
   return true;
 }
+
+bool areYouSure()
+{
+  bool answer;
+  wcout << L"Вы уверены?\n1: да; 0: нет\n";
+  wcin >> answer;
+  return answer;
+}
