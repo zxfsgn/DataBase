@@ -92,7 +92,7 @@ bool IndexCheck(int index, int studentsAmount)
 
 bool isStringValid(wchar_t *str)
 {
-  int i = -1;
+  /*int i = -1;
   while (str[++i] != '\0')
   {
     wchar_t ch = str[i];
@@ -102,7 +102,7 @@ bool isStringValid(wchar_t *str)
       wcout << L"Попробуйте писать буквами" << endl;
       return false;
     }
-  }
+  }*/
   return true;
 }
 

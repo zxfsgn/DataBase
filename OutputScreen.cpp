@@ -65,14 +65,14 @@ const wchar_t *printElement(const wchar_t *t, const int width, bool centerAllign
 
 void printTitle(Widths width)
 {
-  wchar_t titles[][20] = {L"№", L"Имя", L"Фамилия", L"Отчество", L"Группа", L"Оценки", L"Год"};
+  wchar_t titles[][20] = {L"№", L"Самолёт", L"Пункт назначения", L"Дата", L"Время", L"Места"};
   wcout << "\n|";
   int i = 0;
   printElement(titles[i++], width.id, true);
   while (i < 4)
     printElement(titles[i++], width.name, true);
   printElement(titles[i++], width.group, true);
-  printElement(titles[i++], width.grades, true);
+  // printElement(titles[i++], width.grades, true);
   printElement(titles[i++], width.birthYear, true);
 }
 
@@ -82,13 +82,13 @@ void printOneStudent(int index, Student &student, const Widths width)
   Student buffer{-1};
   bool isExcess = false;
   printElement(index + 1, width.id);
-  wmemcpy(buffer.name, printElement(student.name, width.name), 100);
-  wmemcpy(buffer.surname, printElement(student.surname, width.name), 100);
-  wmemcpy(buffer.patronymic, printElement(student.patronymic, width.name), 100);
+  wmemcpy(buffer.name, printElement(student.name, width.name, true), 100);
+  wmemcpy(buffer.surname, printElement(student.surname, width.name, true), 100);
+  wmemcpy(buffer.patronymic, printElement(student.patronymic, width.name, true), 100);
   wmemcpy(buffer.group, printElement(student.group, width.group, true), 100);
-  for (auto grade : student.grades)
-    wcout << (grade != 0 ? static_cast<wchar_t>(grade + L'0') : L' ') << ' ';
-  wcout << '|';
+  // for (auto grade : student.grades)
+  //   wcout << (grade != 0 ? static_cast<wchar_t>(grade + L'0') : L' ') << ' ';
+  // wcout << '|';
   printElement(student.yearOfBirth, width.birthYear);
   buffer.yearOfBirth = -1;
   if (wmemcmp(buffer.name, L"", 1) || wmemcmp(buffer.surname, L"", 1) || wmemcmp(buffer.patronymic, L"", 1) || wmemcmp(buffer.group, L"", 1))
@@ -97,12 +97,12 @@ void printOneStudent(int index, Student &student, const Widths width)
 
 void OutputToTheScreen(Student *students, int studentsAmount)
 {
-  const Widths width{3, 16, 10, 12, 5};
+  const Widths width{3, 16, 10, 5};
   printBorder(width.total);
   printTitle(width);
   printBorder(width.total);
   for (int i{}; i < studentsAmount; ++i)
-    printOneStudent(i, students[i], width);
+    printOneStudent(students[i].id - 1, students[i], width);
   printBorder(width.total);
   wcout << '\n';
 }

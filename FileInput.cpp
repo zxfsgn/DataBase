@@ -1,9 +1,12 @@
 #include "Student.h"
 #include "Manipulations.h"
 #include "FileOutput.h"
+#include <limits>
 
 #include <fstream>
 #include <iostream>
+
+constexpr auto max_size = std::numeric_limits<std::streamsize>::max();
 
 using namespace std;
 

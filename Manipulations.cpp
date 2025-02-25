@@ -25,7 +25,7 @@ void getName(wchar_t *str, int inputLength)
 
 int getStudentNum()
 {
-  wcout << L"Введите номер студента: ";
+  wcout << L"Введите номер рейса: ";
   int number;
   wcin >> number;
   return number;
@@ -51,22 +51,22 @@ void InitializeStudent(Student &student)
 { // add autoformat for strings
   const int inputLength = 100;
   wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
-  wcout << L"Введите группу: ";
-  wcin.getline(student.group, inputLength);
-  wcout << L"Введите фамилию: ";
+  wcout << L"Введите пункт назначения: ";
   getName(student.surname, inputLength);
-  wcout << L"Имя: ";
+  wcout << L"Самолёт: ";
   getName(student.name, inputLength);
-  wcout << L"Отчество: ";
+  wcout << L"Дата: ";
   getName(student.patronymic, inputLength);
-  wcout << L"Год рождения: ";
-  student.yearOfBirth = BirthCheck(2012, 1900);
+  wcout << L"Время: ";
+  wcin.getline(student.group, inputLength);
+  wcout << L"Количество мест: ";
+  student.yearOfBirth = BirthCheck(2000, 2);
   wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
 
-  wcout << L"Введите 6 оценок: ";
+  /*wcout << L"Введите 6 оценок: ";
   for (size_t j{}; j < 6; ++j)
     student.grades[j] = GradeCheck(j);
-  wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
+  wcin.ignore(numeric_limits<streamsize>::max(), L'\n');*/
 }
 
 void deleteOne(Student *students, int &studentsAmount)
@@ -79,10 +79,10 @@ void deleteOne(Student *students, int &studentsAmount)
       students[j] = students[j + 1];
     }
     students[--studentsAmount] = {};
-    wcout << L"Зафикисровано удаление студента\n";
+    wcout << L"Зафикисровано удаление рейса\n";
   }
   else
-    wcout << L"Удаление студента не случилось\n";
+    wcout << L"Удаление рейса не случилось\n";
 }
 
 void createOne(Student *students, int &studentsAmount, int &currentId)
@@ -90,7 +90,7 @@ void createOne(Student *students, int &studentsAmount, int &currentId)
   Student student{currentId++};
   InitializeStudent(student);
   students[studentsAmount++] = student;
-  wcout << L"Создание студента успешно завершено\n";
+  wcout << L"Создание рейса успешно завершено\n";
 }
 
 void changeOne(Student *students, int studentsAmount)
@@ -100,10 +100,10 @@ void changeOne(Student *students, int studentsAmount)
   {
     Student &student = students[number - 1];
     InitializeStudent(student);
-    wcout << L"Сущность студента изменена\n";
+    wcout << L"Сущность рейса изменена\n";
   }
   else
   {
-    wcout << L"Нет удалось изменить сущность студента\n";
+    wcout << L"Нет удалось изменить сущность рейса\n";
   }
 }
