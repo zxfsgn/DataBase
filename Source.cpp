@@ -51,8 +51,18 @@ int main()
       GetFromBinary(BIN_NAME, students, studentsAmount, currentId);
       break;
     case 4:
-      students[studentsAmount] = {180, L"Boeing-747", L"Париж", L"17.07.96", 212, L"20:19"};
-      OutputToTheScreen(students, studentsAmount + 1);
+      {Student QQ{180, L"Boeing-747", L"Париж", L"17.07.96", 212, L"20:19", {}};
+      students[studentsAmount] = QQ;
+      students[studentsAmount+1] = QQ;
+      students[studentsAmount+2] = QQ;
+      students[studentsAmount+3] = QQ;
+      students[studentsAmount+4] = QQ;
+      students[studentsAmount+5] = QQ;
+      students[studentsAmount+6] = QQ;
+      students[studentsAmount+7] = QQ;
+      students[studentsAmount+8] = QQ;
+      OutputToTheScreen(students, studentsAmount + 8);
+      }
       break;
     case 5:
       OutputToFile(TFILE_NAME, students, studentsAmount);
